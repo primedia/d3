@@ -23,7 +23,11 @@ d3 = function() {
   } catch (error) {
     var d3_element_prototype = d3_window.Element.prototype, d3_element_setAttribute = d3_element_prototype.setAttribute, d3_element_setAttributeNS = d3_element_prototype.setAttributeNS, d3_style_prototype = d3_window.CSSStyleDeclaration.prototype, d3_style_setProperty = d3_style_prototype.setProperty;
     d3_element_prototype.setAttribute = function(name, value) {
-      d3_element_setAttribute.call(this, name, value + "");
+      try {
+        d3_element_setAttribute.call(this, name, value + "");
+      } catch (err) {
+        // IE8 falls in the forest and no one hears its cry.
+      }
     };
     d3_element_prototype.setAttributeNS = function(space, local, value) {
       d3_element_setAttributeNS.call(this, space, local, value + "");
